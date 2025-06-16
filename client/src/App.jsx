@@ -14,27 +14,36 @@ import ShoppingHome from './pages/shopping-view/ShoppingHome'
 import ShoppingListing from './pages/shopping-view/ShoppingListing'
 import ShoppingCheckout from './pages/shopping-view/ShoppingCheckout'
 import ShoppingAccount from './pages/shopping-view/ShoppingAccount'
+import CheckAuth from './components/common/CheckAuth'
+import UnauthPage from './pages/unauth-page/UnauthPage'
 
 const App = () => {
+
+  const isAuthenticated = false;
+  const user = null;
+
   return (
     <div className='flex flex-col overflow-hidden bg-white'>
       {/* common component */}
       <h1>Header component</h1>
 
       <Routes>
-        <Route path="/auth" element={<AuthLayout />}>
+
+        <Route path="/auth" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                                      <AuthLayout />
+                                    </CheckAuth>}>
           <Route path="login" element={<AuthLogin />} />
           <Route path="register" element={<AuthRegister />} />
         </Route>
 
-        <Route path="/admin" element={<AdminLayout />} >
+        <Route path="/admin" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}><AdminLayout /></CheckAuth>} >
           <Route path='dashboard' element={<AdminDashboard/>} />
           <Route path='products' element={<AdminProduct />} />
           <Route path='orders' element={<AdminOrder />} />
           <Route path='features' element={<AdminFeatures />} />
         </Route>
 
-        <Route path='/shop' element={<ShoppingLayout />}>
+        <Route path='/shop' element={<CheckAuth isAuthenticated={isAuthenticated} user={user}><ShoppingLayout /></CheckAuth>}>
           <Route path='home' element={<ShoppingHome />} />
           <Route path='listing' element={<ShoppingListing />} />
           <Route path='checkout' element={<ShoppingCheckout />} />
@@ -42,6 +51,7 @@ const App = () => {
         </Route>
 
         <Route path='*' element={<Notfound />} />
+        <Route path='/unauth-page' element={<UnauthPage/>} />
       </Routes>
     </div>
   )
