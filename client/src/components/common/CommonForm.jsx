@@ -9,6 +9,8 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
 
     function renderInputByComponentType(getControleItem) {
         let element = null;
+        const value = formData[getControleItem.name] || "";
+
         switch (getControleItem.componentType) {
             case "input": 
                 element = ( <Input
@@ -16,13 +18,25 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                     placeholder={getControleItem.placeholder}
                     id={getControleItem.name}
                     type={getControleItem.type}
+                    value={value}
+                    onChange={event => setFormData({
+                        ...formData,
+                        [getControleItem.name]: event.target.value
+                    })}
                     />
                 );
                 break;
 
             case "select": 
                 element = ( 
-                    <Select >
+                    <Select 
+                    onValueChange={(value) => setFormData({
+                        ...formData,
+                        [getControleItem.name]: value
+                    })}
+                    value={value}
+                   
+                    >
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder={getControleItem.placeholder} />
                         </SelectTrigger>
@@ -43,6 +57,11 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                     name={getControleItem.name}
                     placeholder={getControleItem.placeholder}
                     id={getControleItem.name}
+                    value={value}
+                    onChange={event => setFormData({
+                        ...formData,
+                        [getControleItem.name]: event.target.value
+                    })}
                     />
                 );
                 break;
@@ -53,6 +72,10 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                     placeholder={getControleItem.placeholder}
                     id={getControleItem.name}
                     type={getControleItem.type}
+                    onChange={event => setFormData({
+                        ...formData,
+                        [getControleItem.name]: event.target.value
+                    })}
                     />
                 );
                 break;
