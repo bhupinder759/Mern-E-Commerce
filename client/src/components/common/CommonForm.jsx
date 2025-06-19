@@ -19,7 +19,7 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                     id={getControleItem.name}
                     type={getControleItem.type}
                     value={value}
-                    onChange={event => setFormData({
+                    onChange={(event) => setFormData({
                         ...formData,
                         [getControleItem.name]: event.target.value
                     })}
@@ -66,7 +66,7 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                 );
                 break;
             
-            default:
+            default :
                 element = ( <Input
                     name={getControleItem.name}
                     placeholder={getControleItem.placeholder}
@@ -80,16 +80,17 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                 );
                 break;
         }
+        return element;
     }
   return (
     <form onSubmit={onSubmit}>
       <div className='flex flex-col gap-3'>
         {
-            formControls.map(controlItem => <div className='grid w-full gap-1.5' key={controlItem.name}>
+            formControls.map((controlItem) => (<div className='grid w-full gap-1.5' key={controlItem.name}>
                 <Label className='mb-1'>{controlItem.label}</Label>
                 {renderInputByComponentType(controlItem)}
             </div>)
-        }
+        )}
       </div>
       <Button type="submit" className="mt-2 w-full">{buttonText || "Submit"}</Button>
     </form>
