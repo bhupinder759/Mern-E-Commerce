@@ -3,7 +3,7 @@ import { loginFromControls } from '@/config';
 import { loginUser } from '@/store/auth-slice';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "sonner"
 
 
@@ -16,13 +16,22 @@ const AuthLogin = () => {
   
     const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     function onSubmit (event) {
       event.preventDefault();
       dispatch(loginUser(formData)).then((data) => {
-        console.log(data)
-      })
+        if (data?.payload?.success) {
+          toast.success(data.payload.message);
+          // navigate('/dashboard')
+        } else {
+          toast.error(data?.payload?.message || 'Invalid credentials', { variant: 'destructive' });
+          console.error(data?.payload?.message || 'Login failed');
+        }
+      }).catch((error) => {
+        toast.error(error.message || 'Login failed', { variant: 'destructive' });
+        console.error(error);
+      });
 
     }
 

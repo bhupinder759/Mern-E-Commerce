@@ -38,7 +38,7 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                    
                     >
                         <SelectTrigger className="w-full">
-                            <SelectValue placeholder={getControleItem.placeholder} />
+                            <SelectValue placeholder={getControleItem.label} />
                         </SelectTrigger>
                         <SelectContent>
                             {
