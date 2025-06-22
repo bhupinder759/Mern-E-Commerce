@@ -1,11 +1,11 @@
-import { Label } from '@radix-ui/react-label'
+import { Label } from '../ui/label';
 import React from 'react'
 import { Input } from '../ui/input';
-import { Select, SelectContent, SelectValue } from '@radix-ui/react-select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 
-const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }) => {
+const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText, isButtonDisabled }) => {
 
     function renderInputByComponentType(getControleItem) {
         let element = null;
@@ -21,7 +21,7 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
                     value={value}
                     onChange={(event) => setFormData({
                         ...formData,
-                        [getControleItem.name]: event.target.value
+                        [getControleItem.name]: event.target.value,
                     })}
                     />
                 );
@@ -92,7 +92,7 @@ const CommonForm = ({formControls, formData, setFormData, onSubmit, buttonText }
             </div>)
         )}
       </div>
-      <Button type="submit" className="mt-2 w-full">{buttonText || "Submit"}</Button>
+      <Button disabled={isButtonDisabled} type="submit" className="mt-2 w-full">{buttonText || "Submit"}</Button>
     </form>
   )
 }
