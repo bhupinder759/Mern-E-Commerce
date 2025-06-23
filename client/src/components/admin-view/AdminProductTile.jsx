@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardContent, CardFooter } from '../ui/card'
 import { Button } from '../ui/button'
 
-const AdminProductTile = ({ product, setOpenCreateProductDialog, setCurrentEditedId, setFormData, handleDelete }) => {
+const AdminProductTile = ({ product, setOpenCreateProductsDialog, setCurrentEditedId, setFormData, handleDelete }) => {
   return (
     <Card className='w-full max-w-sm mx-auto'>
       <div>
@@ -11,7 +11,7 @@ const AdminProductTile = ({ product, setOpenCreateProductDialog, setCurrentEdite
             className='w-fill h-[300px] object-cover rounded-t-lg' />
         </div>
         <CardContent>
-            <h2 className='text-xl font-bold mb-2'>{product.title}</h2>
+            <h2 className='text-xl font-bold mb-2'>{product?.title}</h2>
             <div className='flex justify-between items-center mb-2'>
                 <span
               className={`${
@@ -27,7 +27,7 @@ const AdminProductTile = ({ product, setOpenCreateProductDialog, setCurrentEdite
         </CardContent>
         <CardFooter className='flex justify-between items-center'>
             <Button onClick={() => {
-                setOpenCreateProductDialog(true);
+                setOpenCreateProductsDialog(true);
                 setCurrentEditedId(product?._id);
                 setFormData(product);
             }}>Edit</Button>

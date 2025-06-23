@@ -15,6 +15,7 @@ export const addNewProduct = createAsyncThunk('/products/addnewproduct',
         }
         );
         console.log(result, "result data");
+        console.log("form data", formData)
         return result?.data;
     }
 )

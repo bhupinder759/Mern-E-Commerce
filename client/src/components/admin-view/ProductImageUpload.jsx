@@ -58,7 +58,9 @@ const ProductImageUpload = ({
   }
 
   useEffect(() => {
-    if (imageFile !== null) uploadImageToCloudinary();
+    if (imageFile !== null) {
+      uploadImageToCloudinary();
+    }
   }, [imageFile]);
 
   return (
