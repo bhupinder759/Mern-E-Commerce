@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth/authRoute');
 const adminProductsRouter = require('./routes/admin/products-routes.js');
+const shopProductsRouter = require('./routes/shop/products-routes.js');
 // Load environment variables from .env file
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.use(express.json());
 // Define a simple route
 app.use('/api/auth', authRoute);
 app.use('/api/admin/products', adminProductsRouter);
+app.use('/api/shop/products', shopProductsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
