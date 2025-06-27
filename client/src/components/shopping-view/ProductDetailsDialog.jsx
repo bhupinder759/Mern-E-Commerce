@@ -5,10 +5,34 @@ import { Separator } from '../ui/separator'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { StarIcon } from 'lucide-react'
 import { Input } from '../ui/input'
+import { useDispatch } from 'react-redux'
+import { addToCart, fetchCartItems } from '@/store/shop/cart-slice'
+import { toast } from 'sonner'
+import { useSelector } from 'react-redux'
+import { setProductDetails } from '@/store/shop/products-slice'
 
 const ProductDetailsDialog = ({open, setOpen, productDetails}) => {
+
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+
+    function handleAddtoCart(getCurrentProductId) {
+    dispatch(addToCart({ userId : user?.id, productId : getCurrentProductId, quantity : 1 }))
+    .then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchCartItems(user?.id));
+        toast.success(data.payload.message);
+      }
+    })
+  }
+
+  function handleDialogClose() {   // or component per jaye or vapise aye per dialog box apne app close ho jaye
+    setOpen(false)
+    dispatch(setProductDetails());
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogClose}>
         <DialogContent className='grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]'>
             <div className='relative overflow-hidden rounded-lg'>
                 <img 
@@ -40,8 +64,8 @@ const ProductDetailsDialog = ({open, setOpen, productDetails}) => {
                     </div>
                     <span className='text-muted-foreground'>(4.5)</span>
                 </div>
-                <div className='mt-5'>
-                    <Button className='w-full'>Add to Cart</Button>                   
+                <div className='mt-5 mb-5'>
+                    <Button onClick={() => handleAddtoCart(productDetails?._id)} className='w-full'>Add to Cart</Button>                   
                 </div>
                 <Separator />
                 <div className='max-h-[300px] overflow-auto'>

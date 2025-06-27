@@ -22,9 +22,6 @@ function createSearchParamsHelper(filterParams) {
       queryParams.push(`${key}=${encodeURIComponent(paramValue)}`);
     }
   }
-
-  console.log(queryParams);
-
   return queryParams.join("&");
 }
 

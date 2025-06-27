@@ -137,7 +137,7 @@ const updateCartItemQty = async (req, res) => {
       select: "image title price salePrice",
     });
 
-    const populateCartItems = cart.map((item) => ({
+    const populateCartItems = cart.items.map((item) => ({
       productId: item.productId ? item.productId._id : null,
       image: item.productId ? item.productId.image : null,
       title: item.productId ? item.productId.title : "product not found",
@@ -146,7 +146,7 @@ const updateCartItemQty = async (req, res) => {
       quantity: item.quantity,
     }));
 
-    res
+    return res
       .status(200)
       .json({
         success: true,
