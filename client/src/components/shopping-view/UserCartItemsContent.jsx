@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 const UserCartItemsContent = ({cartItem}) => {
  
   const  user  = useSelector(state => state.auth.user)
-  console.log(user, "user")
   const dispatch = useDispatch();
 
   function handleUpdateQuantity(getCareItem, typeOfAction) {

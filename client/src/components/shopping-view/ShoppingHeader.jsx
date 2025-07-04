@@ -61,9 +61,11 @@ function HeaderRightContent() {
       <ShoppingCart className='w-6 h-6' />
       <span className='sr-only'>User cart</span>
     </Button>
-    <UserCartWrapper cartItems={cartItems}/>
-    {/* <UserCartWrapper cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}/> */}
-    </Sheet>
+    <UserCartWrapper setOpenCartSheet={setOpenCartSheet} cartItems={cartItems}/>
+    {/* <UserCartWrapper 
+     setOpenCartSheet={setOpenCartSheet}
+    cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}/> */}
+    {/* </Sheet> */}
 
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -88,6 +90,7 @@ function HeaderRightContent() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    </Sheet>
   </div>
 }
 
