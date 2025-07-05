@@ -159,13 +159,15 @@ const getAllOrdersByUser = async (req, res) => {
         message: "No orders found!",
       });
     }
+    console.log("reaquest send")
 
     res.status(200).json({
       success: true,
       data: orders,
     });
+
   } catch (e) {
-    console.log(e);
+    console.log(e, "Error");
     res.status(500).json({
       success: false,
       message: "Some error occured!",

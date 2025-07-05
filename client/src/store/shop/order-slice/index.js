@@ -43,7 +43,7 @@ export const getAllOrdersByUserId = createAsyncThunk(
     const response = await axios.get(
       `http://localhost:5000/api/shop/order/list/${userId}`
     );
-
+    console.log(response.data, "get all order");
     return response.data;
   }
 );

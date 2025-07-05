@@ -8,11 +8,31 @@ import { toast } from 'sonner';
 const UserCartItemsContent = ({cartItem}) => {
  
   const  user  = useSelector(state => state.auth.user)
+  const { cartItems } = useSelector(state => state.shopCart)
+  const { productList } = useSelector(state => state.shopProducts)
   const dispatch = useDispatch();
 
-  function handleUpdateQuantity(getCareItem, typeOfAction) {
-    dispatch(updateCartQuantity({ userId : user?.id, productId : getCareItem?.productId, quantity :
-      typeOfAction === 'plus' ? getCareItem?.quantity + 1 : getCareItem?.quantity - 1
+  function handleUpdateQuantity(getCartItem, typeOfAction) {
+
+    if (typeOfAction === 'plus') {
+      let getCartItems = cartItems || []
+      
+          if (getCartItems.length) {
+            const indexOfCurrentCartItem = getCartItems.findIndex(item => item.productId === getCartItem?.productId);
+
+            const getCurrentProductIndex = productList.findIndex(product => product._id === getCartItem?.productId);
+            const getTotalStock = productList[getCurrentProductIndex].totalStock
+            if (indexOfCurrentCartItem > -1) {
+              const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
+              if (getQuantity + 1 > getTotalStock) {
+                toast(`Only ${getQuantity} quantity can be added for`)
+              }
+            }
+      
+          }
+    }
+    dispatch(updateCartQuantity({ userId : user?.id, productId : getCartItem?.productId, quantity :
+      typeOfAction === 'plus' ? getCartItem?.quantity + 1 : getCartItem?.quantity - 1
      })).then(data => {
       if (data?.payload?.success) {
         toast("Cart updated successfully")
