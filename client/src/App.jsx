@@ -39,6 +39,10 @@ const App = () => {
       {/* common component */}
       <Routes>
 
+        <Route path='/' element={<CheckAuth isAuthenticated={isAuthenticated} user={user}>
+                                      <AuthLayout />
+                                    </CheckAuth>} />
+
         <Route path="/auth" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}>
                                       <AuthLayout />
                                     </CheckAuth>}>

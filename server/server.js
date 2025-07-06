@@ -11,6 +11,8 @@ const shopCartRouter = require('./routes/shop/cart-routes.js');
 const shopAddressRouter = require('./routes/shop/address.routes.js');
 const shopOrderRouter = require('./routes/shop/order-routes.js');
 const shopSearchRouter = require('./routes/shop/search-route.js');
+
+const commonFeatureRouter = require("./routes/common/feature-routes.js")
 // Load environment variables from .env file
 
 dotenv.config();
@@ -42,6 +44,7 @@ app.use('/api/shop/cart', shopCartRouter);
 app.use('/api/shop/address', shopAddressRouter);
 app.use('/api/shop/order', shopOrderRouter);
 app.use('/api/shop/search', shopSearchRouter);
+app.use('/api/common/feature', commonFeatureRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
