@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { capturePayment } from '@/store/shop/order-slice';
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom';
 
 const PaypalReturnPage = () => {
     const dispatch = useDispatch();

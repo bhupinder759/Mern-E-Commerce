@@ -14,20 +14,20 @@ export const addNewProduct = createAsyncThunk('/products/addnewproduct',
             }
         }
         );
-        console.log(result, "result data");
-        console.log("form data", formData)
+        console.log(result?.data, "store add product");
         return result?.data;
     }
 )
 
-export const fetchAllProducts = createAsyncThunk('/products/fetchallProducts', 
+export const fetchAllProducts = createAsyncThunk('/products/fetchAllProducts', 
     async () => {
         const result = await axios.get('http://localhost:5000/api/admin/products/get');
+        console.log(result?.data, "store fetch product");
         return result?.data;
     }
 )
 
-export const editProduct = createAsyncThunk('/products/editproduct', 
+export const editProduct = createAsyncThunk('/products/editProduct', 
     async ({id, formData}) => {
         const result = await axios.put(`http://localhost:5000/api/admin/products/edit/${id}`, formData, {
             headers : {
@@ -39,14 +39,14 @@ export const editProduct = createAsyncThunk('/products/editproduct',
     }
 )
 
-export const deleteProduct = createAsyncThunk('/products/deleteproduct', 
+export const deleteProduct = createAsyncThunk('/products/deleteProduct', 
     async (id) => {
         const result = await axios.delete(`http://localhost:5000/api/admin/products/delete/${id}`);
         return result?.data;
     }
 )
 
-const AdminProductSlice = createSlice({
+const AdminProductsSlice = createSlice({
     name: 'adminProducts',
     initialState,
     reducers: {},
@@ -56,7 +56,7 @@ const AdminProductSlice = createSlice({
             state.isLoading = true;
         })
         .addCase(fetchAllProducts.fulfilled, (state, action) => {
-            console.log(action.payload, "action payload");
+            // console.log(action.payload, "action payload");
 
             state.isLoading = false;
             state.productList = action.payload?.data;
@@ -68,4 +68,4 @@ const AdminProductSlice = createSlice({
     },
 })
 
-export default AdminProductSlice.reducer
+export default AdminProductsSlice.reducer

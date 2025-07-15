@@ -12,7 +12,7 @@ export const getFeatureImages = createAsyncThunk(
     const response = await axios.get(
       `http://localhost:5000/api/common/feature/get`
     );
-
+    
     return response.data;
   }
 );
@@ -24,7 +24,7 @@ export const addFeatureImage = createAsyncThunk(
       `http://localhost:5000/api/common/feature/add`,
       { image }
     );
-
+    
     return response.data;
   }
 );

@@ -202,6 +202,8 @@ function AdminProducts() {
   const { productList } = useSelector((state) => state.adminProducts);
   const dispatch = useDispatch();
   // const { toast } = useToast();
+  console.log(imageFile, "imageFile admin page");
+  console.log(uploadedImageUrl, "uploadedImageUrl in admin page");
 
   // Sync uploadedImageUrl to formData.image
   useEffect(() => {
@@ -294,13 +296,14 @@ function AdminProducts() {
       </div>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {productList && productList.length > 0
-          ? productList.map((productItem) => (
+          ? productList.map((productItem, i) => (
               <AdminProductTile
                 setFormData={setFormData}
                 setOpenCreateProductsDialog={setOpenCreateProductsDialog}
                 setCurrentEditedId={setCurrentEditedId}
                 product={productItem}
                 handleDelete={handleDelete}
+                key={i}
               />
             ))
           : null}

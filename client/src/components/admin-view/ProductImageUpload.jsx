@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-label";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import { FileIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import React, { useEffect, useRef } from "react";
 import axios from "axios";
@@ -17,6 +17,8 @@ const ProductImageUpload = ({
   isCustomStyling = false ,
 }) => {
   const inputRef = useRef(null);
+  console.log(imageFile, "imageFile(productImageUpload me gya)");
+  console.log(uploadedImageUrl, "uploadedImageUrl(productImageUpload me gya)");
 
   function handleImageFileChange(event) {
     console.log(event.target.files);
@@ -46,13 +48,16 @@ const ProductImageUpload = ({
     setImageLoadingState(true);
     const data = new FormData();
     data.append("my_file", imageFile);
-
+    console.log(imageFile, "imageFile(productImageUpload)");
     const response = await axios.post(
       "http://localhost:5000/api/admin/products/upload-image",
       data
     );
 
+    console.log(response.data, "response aa gya vapis");
+
     if (response?.data?.success) {
+      console.log(response, "response.data.result.url");
       setUploadedImageUrl(response.data.result.url);
       setImageLoadingState(false);
     }
@@ -80,7 +85,7 @@ const ProductImageUpload = ({
           className="hidden"
           ref={inputRef}
           onChange={handleImageFileChange}
-          disable={isEditMode}
+          disabled={isEditMode}
         />
         {!imageFile ? (
           <Label
