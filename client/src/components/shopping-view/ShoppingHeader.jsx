@@ -9,7 +9,7 @@ import { Button } from '../ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
-import { logoutUser } from '@/store/auth-slice';
+import { logoutUser, resetTokenAndCredentials } from '@/store/auth-slice';
 import UserCartWrapper from './UserCartWrapper';
 import { fetchCartItems } from '@/store/shop/cart-slice';
 import { Label } from '../ui/label';
@@ -52,8 +52,12 @@ function HeaderRightContent() {
   const [openCartSheet, setOpenCartSheet] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   function handleLogout() {
-    dispatch(logoutUser())
+    // dispatch(logoutUser())
+    dispatch(resetTokenAndCredentials());
+    sessionStorage.clear();
+    navigate('/auth/login');
   }
 
   useEffect(() => {

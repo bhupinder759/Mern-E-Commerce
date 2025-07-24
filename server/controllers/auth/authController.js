@@ -74,9 +74,19 @@ const loginUser = async (req, res) => {
         httpOnly: true,
         secure: true,
       })
+      // .json({
+      //   success: true,
+      //   message: "Login successful",
+      //   user: {
+      //     email: user.email,
+      //     role: user.role,
+      //     id: user._id,
+      //     userName: user.userName,
+      //   },
       .json({
         success: true,
         message: "Login successful",
+        token,
         user: {
           email: user.email,
           role: user.role,
@@ -97,8 +107,29 @@ const logoutUser = async (req, res) => {
 };
 
 //auth middleware
+// const authMiddleware = async (req, res, next) => {
+//   const token = req.cookies.token;
+
+//   if (!token) {
+//     return res.status(401).json({ success: false, message: "Unauthorized" });
+//   }
+
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     if (!decoded) {
+//       return res.status(401).json({ success: false, message: "Unauthorized" });
+//     }
+//     req.user = decoded;
+//     next();
+//   } catch (error) {
+//     console.error("Authentication error:", error);
+//     res.status(500).json({ success: false, message: "Internal server error" });
+//   }
+// };
+
 const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.token;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
     return res.status(401).json({ success: false, message: "Unauthorized" });
